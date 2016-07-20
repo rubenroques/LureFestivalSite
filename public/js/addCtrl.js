@@ -40,19 +40,22 @@ addCtrl.controller('addCtrl', function($scope, $http, $rootScope, geolocation, g
         $scope.$apply(function(){
             $scope.formData.latitude = parseFloat(gservice.clickLat).toFixed(3);
             $scope.formData.longitude = parseFloat(gservice.clickLong).toFixed(3);
-            $scope.formData.htmlverified = "Nope (Thanks for spamming my map...)";
+            $scope.formData.htmlverified = "Nope";
         });
     });
 
     // Function for refreshing the HTML5 verified location (used by refresh button)
     $scope.refreshLoc = function(){
         geolocation.getLocation().then(function(data){
+            
             coords = {lat:data.coords.latitude, long:data.coords.longitude};
 
             $scope.formData.longitude = parseFloat(coords.long).toFixed(3);
             $scope.formData.latitude = parseFloat(coords.lat).toFixed(3);
             $scope.formData.htmlverified = "Yep (Thanks for giving us real data!)";
+            
             gservice.refresh(coords.lat, coords.long);
+            
         });
     };
 

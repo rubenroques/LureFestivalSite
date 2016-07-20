@@ -6,7 +6,7 @@
 
         <!-- Panel Title -->
         <div class="panel-heading">
-            <h2 class="panel-title text-center">Join the Scotch Team! <span class="glyphicon glyphicon-map-marker"></span></h2>
+            <h2 class="panel-title text-center">Create your Lure Festival<span class="glyphicon glyphicon-map-marker"></span></h2>
         </div>
 
         <!-- Panel Body -->
@@ -17,36 +17,20 @@
 
                 <!-- Text Boxes and Other User Inputs. Note ng-model binds the values to Angular $scope -->
                 <div class="form-group">
-                    <label for="username">Username <span class="badge">All fields required</span></label>
-                    <input type="text" class="form-control" id="username" placeholder="OldandGold" ng-model="formData.username" required>
-                </div>
-                <label class="radio control-label">Gender</label>
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="optionsRadios" id="radiomale" value="Male" ng-model="formData.gender">
-                        Male
-                    </label>
-                </div>
-                <div class="radio" required>
-                    <label>
-                        <input type="radio" name="optionsRadios" id="radiofemale" value="Female" ng-model="formData.gender">
-                        Female
-                    </label>
-                </div>
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="optionsRadios" id="radioother" value="What's it to ya?" ng-model="formData.gender">
-                        What's it to ya?
-                    </label>
+                    <label for="username">Festival Name </label>
+                    <input type="text" class="form-control" id="username" placeholder="Gotta Catch 'Em All" ng-model="formData.username" required>
+                </div>                
+                <div class="form-group">
+                    <label for="age">Start date time</label>
+                    <input type="date" class="form-control" id="language" placeholder="" ng-model="formData.startDate" required>
+                    <input type="time" class="form-control" id="language" placeholder="" ng-model="formData.startDateTime" required>
                 </div>
                 <div class="form-group">
-                    <label for="age">Age</label>
-                    <input type="number" class="form-control" id="age" placeholder="72" ng-model="formData.age" required>
+                    <label for="language">End date time</label>
+                    <input type="date" class="form-control" id="language" placeholder="" ng-model="formData.endDate" >
+                    <input type="time" class="form-control" id="language" placeholder="" ng-model="formData.endDateTime" >
                 </div>
-                <div class="form-group">
-                    <label for="language">Favorite Language</label>
-                    <input type="text" class="form-control" id="language" placeholder="Fortran" ng-model="formData.favlang" required>
-                </div>
+
                 <div class="form-group">
                     <label for="latitude">Latitude</label>
                     <input type="text" class="form-control" id="latitude" value="39.500" ng-model="formData.latitude" readonly>
