@@ -13,6 +13,7 @@ module.exports = function(app) {
 
         // Uses Mongoose schema to run the search (empty conditions)
         var query = User.find({});
+
         query.exec(function(err, users){
             if(err) {
                 res.send(err);

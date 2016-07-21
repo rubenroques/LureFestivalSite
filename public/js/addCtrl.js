@@ -30,6 +30,7 @@ addCtrl.controller('addCtrl', function($scope, $http, $rootScope, geolocation, g
 
     });
 
+
     // Functions
     // ----------------------------------------------------------------------------
 
@@ -43,6 +44,7 @@ addCtrl.controller('addCtrl', function($scope, $http, $rootScope, geolocation, g
             $scope.formData.htmlverified = "Nope";
         });
     });
+
 
     // Function for refreshing the HTML5 verified location (used by refresh button)
     $scope.refreshLoc = function(){

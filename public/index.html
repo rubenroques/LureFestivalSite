@@ -46,46 +46,33 @@
 
 <body>
 
+<nav class="navbar navbar-inverse" role="navigation" >
 
-<div class="container-full">
-    <!-- Header Menu. Note use of headerCtrl -->
-    <div class="header" ng-controller="headerCtrl">
+        <div class="navbar-header">
+            <a class="navbar-brand " href="#" >Lure Festival </a>
 
-        <!-- Header items are made active upon selection -->
-        <ul class="nav nav-pills pull-right">
+            <a  type="button" class="btn navbar-btn pull-right" data-toggle="modal" data-target="#myModalHorizontal" >
+                <span class="glyphicon glyphicon-plus-sign "></span> Create Lure Festival
+            </a>
 
-
-            <!-- Button trigger modal -->
-            <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModalHorizontal">
-                Create Lure Festival
-            </button>
-
-        </ul>
-
-        <!-- Header Title -->
-        <h3 class="text-title">Lure Festival </h3>
-
-    </div>
-
-    <!-- Map and Side Panel -->
-    <div class="row content">
-
-        <!-- Google Map -->
-        <div class="col-md-7">
-            <div id="map"></div>
         </div>
+</nav>
 
+<div class="container">
 
-    </div>
-    <hr/>
+    <div id="map"></div>
+
+    </hr>
 
     <!-- Footer -->
     <div class="footer">
         <p class="text-center">
-            <span class="glyphicon glyphicon-check"></span>
-            <a href="https://scotch.io/">Support</a> |
-            <a href="https://github.com/afhaque/MeanMapAppV2.0">Twitter</a> |
-            <a href="https://github.com/afhaque/MeanMapAppV2.0">Facebook</a>
+            © LureFestival.com 2016. All rights reserved.
+            <br>
+            <i class="fa fa-ticket "></i> <a href="https://scotch.io/">Support</a> |
+            <i class="fa fa-twitter"></i>  <a href="https://github.com/afhaque/MeanMapAppV2.0">Twitter</a>
+            <br>
+            Created by <a href="http://www.thinknr.com/">Thinknr.com</a>
         </p>
     </div>
 
@@ -93,8 +80,7 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="myModalHorizontal" tabindex="-1" role="dialog"
-     aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModalHorizontal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" ng-controller = "addCtrl" >
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Modal Header -->
