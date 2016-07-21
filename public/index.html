@@ -30,6 +30,18 @@
     <script src="js/queryCtrl.js"></script>
     <script src="js/headerCtrl.js"></script>
 
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
 </head>
 
 <body>
@@ -41,8 +53,13 @@
 
         <!-- Header items are made active upon selection -->
         <ul class="nav nav-pills pull-right">
-             <li ng-class="{ active: isActive('/join')}"><a href="/#/join">Create Lure Festival</a></li>
-            <li ng-class="{ active: isActive('/find')}"><a href="/#/find">Find Lure Festivals</a></li>
+
+
+            <!-- Button trigger modal -->
+            <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModalHorizontal">
+                Create Lure Festival
+            </button>
+
         </ul>
 
         <!-- Header Title -->
@@ -58,9 +75,6 @@
             <div id="map"></div>
         </div>
 
-        <!-- Side Panel (Controlled by ng-view) -->
-        <div ng-view>
-        </div>
 
     </div>
     <hr/>
@@ -68,14 +82,79 @@
     <!-- Footer -->
     <div class="footer">
         <p class="text-center">
-            <span class="glyphicon glyphicon-check"></span>    
-            <a href="https://scotch.io/">Support</a> | 
-            <a href="https://github.com/afhaque/MeanMapAppV2.0">Twitter</a> | 
+            <span class="glyphicon glyphicon-check"></span>
+            <a href="https://scotch.io/">Support</a> |
+            <a href="https://github.com/afhaque/MeanMapAppV2.0">Twitter</a> |
             <a href="https://github.com/afhaque/MeanMapAppV2.0">Facebook</a>
         </p>
     </div>
 
 </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModalHorizontal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Modal title
+                </h4>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+
+                <!-- Creates Form (novalidate disables HTML validation, Angular will control) -->
+                <form name ="addForm" novalidate>
+
+                    <!-- Text Boxes and Other User Inputs. Note ng-model binds the values to Angular $scope -->
+                    <div class="form-group">
+                        <label for="username">Festival Name </label>
+                        <input type="text" class="form-control" id="username" placeholder="Gotta Catch 'Em All" ng-model="formData.username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="age">Start date time</label>
+                        <input type="date" class="form-control" id="startDate" placeholder="" ng-model="formData.startDate" required>
+                        <input type="time" class="form-control" id="startDateTime" placeholder="" ng-model="formData.startDateTime" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="language">End date time</label>
+                        <input type="date" class="form-control" id="endDate" placeholder="" ng-model="formData.endDate" >
+                        <input type="time" class="form-control" id="endDateTime" placeholder="" ng-model="formData.endDateTime" >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="latitude">Latitude</label>
+                        <input type="text" class="form-control" id="latitude" value="39.500" ng-model="formData.latitude" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="longitude">Longitude</label>
+                        <input type="text" class="form-control" id="longitude" value="-98.350" ng-model="formData.longitude" readonly>
+                    </div>
+                    <div class="form-group">
+                        <!-- Note RefreshLoc button tied to addCtrl. This requests a refresh of the HTML5 verified location. -->
+                        <label for="verified">HTML5 Verified Location? <span><button ng-click="refreshLoc()" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-refresh"></span></button></span></label>
+                        <input type="text" class="form-control" id="verified" placeholder= "Nope (Thanks for spamming my map...)" ng-model="formData.htmlverified" readonly>
+                    </div>
+
+                    <!-- Submit button. Note that its tied to createUser() function from addCtrl. Also note ng-disabled logic which prevents early submits.  -->
+                    <button type="submit" class="btn btn-danger btn-block" ng-click="createUser()" ng-disabled="addForm.$invalid">Submit</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 </body>
 </html>
