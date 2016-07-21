@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <!-- Declares meanMapApp as the starting Angular module -->
 <html class="no-js" ng-app="meanMapApp">
 <head>
@@ -94,7 +94,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="myModalHorizontal" tabindex="-1" role="dialog"
-     aria-labelledby="myModalLabel" aria-hidden="true">
+     aria-labelledby="myModalLabel" aria-hidden="true" ng-controller="addCtrl">
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Modal Header -->
@@ -118,7 +118,7 @@
                     <!-- Text Boxes and Other User Inputs. Note ng-model binds the values to Angular $scope -->
                     <div class="form-group">
                         <label for="username">Festival Name </label>
-                        <input type="text" class="form-control" id="username" placeholder="Gotta Catch 'Em All" ng-model="formData.username" required>
+                        <input type="text" class="form-control" id="username" placeholder="Gotta Catch 'Em All" ng-model="formData.festivalName" required>
                     </div>
                     <div class="form-group">
                         <label for="age">Start date time</label>
@@ -133,7 +133,7 @@
 
                     <div class="form-group">
                         <label for="latitude">Latitude</label>
-                        <input type="text" class="form-control" id="latitude" value="39.500" ng-model="formData.latitude" readonly>
+                        <input type="text" class="form-control" id="latitude" value="39.500" ng-model="formData.latitude" readonly >
                     </div>
                     <div class="form-group">
                         <label for="longitude">Longitude</label>
