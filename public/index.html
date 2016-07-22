@@ -45,100 +45,91 @@
 </head>
 
 <body>
-
-<nav class="navbar navbar-inverse" role="navigation" >
-
+    <nav class="navbar navbar-inverse" role="navigation" >
         <div class="navbar-header">
             <a class="navbar-brand " href="#" >Lure Festival </a>
-
             <a  type="button" class="btn navbar-btn pull-right" data-toggle="modal" data-target="#myModalHorizontal" >
                 <span class="glyphicon glyphicon-plus-sign "></span> Create Lure Festival
             </a>
-
         </div>
-</nav>
-
-<div class="container">
-
-    <div id="map"></div>
-
-    </hr>
+    </nav>
+    <div class="container-full fill">
+        <div id="map"></div>
+    </div>
 
     <!-- Footer -->
     <div class="footer">
         <p class="text-center">
-            © LureFestival.com 2016. All rights reserved.
-            <br>
-            <i class="fa fa-ticket "></i> <a href="https://scotch.io/">Support</a> |
+            © LureFestival.com 2016. All rights reserved.  
+
+            <i class="fa fa-ticket "></i> <a href="https://scotch.io/">Support</a>  |
             <i class="fa fa-twitter"></i>  <a href="https://github.com/afhaque/MeanMapAppV2.0">Twitter</a>
             <br>
             Created by <a href="http://www.thinknr.com/">Thinknr.com</a>
         </p>
     </div>
 
-</div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModalHorizontal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" ng-controller = "addCtrl" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        Modal title
+                    </h4>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-body">
+
+                    <!-- Creates Form (novalidate disables HTML validation, Angular will control) -->
+                    <form name ="addForm" novalidate>
+
+                        <!-- Text Boxes and Other User Inputs. Note ng-model binds the values to Angular $scope -->
+                        <div class="form-group">
+                            <label for="username">Festival Name </label>
+                            <input type="text" class="form-control" id="username" placeholder="Gotta Catch 'Em All" ng-model="formData.festivalName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="age">Start date time</label>
+                            <input type="date" class="form-control" id="startDate" placeholder="" ng-model="formData.startDate" required>
+                            <input type="time" class="form-control" id="startDateTime" placeholder="" ng-model="formData.startDateTime" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="language">End date time</label>
+                            <input type="date" class="form-control" id="endDate" placeholder="" ng-model="formData.endDate" >
+                            <input type="time" class="form-control" id="endDateTime" placeholder="" ng-model="formData.endDateTime" >
+                        </div>
 
 
-<!-- Modal -->
-<div class="modal fade" id="myModalHorizontal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" ng-controller = "addCtrl" >
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <button type="button" class="close"
-                        data-dismiss="modal">
-                    <span aria-hidden="true">&times;</span>
-                    <span class="sr-only">Close</span>
-                </button>
-                <h4 class="modal-title" id="myModalLabel">
-                    Modal title
-                </h4>
-            </div>
+                        <div class="form-group">
+                            <span><button ng-click="refreshLoc()" class="btn btn-default btn-xs"> <i class="fa fa-location-arrow" aria-hidden="true"></i> </span>
+                        </div>
 
-            <!-- Modal Body -->
-            <div class="modal-body">
+                        <div class="form-group">
+                            <label for="latitude">Latitude</label>
+                            <input type="text" class="form-control" id="latitude" value="39.500" ng-model="formData.latitude" readonly >
+                        </div>
+                        <div class="form-group">
+                            <label for="longitude">Longitude</label>
+                            <input type="text" class="form-control" id="longitude" value="-98.350" ng-model="formData.longitude" readonly>
+                        </div>
 
-                <!-- Creates Form (novalidate disables HTML validation, Angular will control) -->
-                <form name ="addForm" novalidate>
+                        <!-- Submit button. Note that its tied to createUser() function from addCtrl. Also note ng-disabled logic which prevents early submits.  -->
+                        <button type="submit" class="btn btn-danger btn-block" ng-click="createUser()" ng-disabled="addForm.$invalid">Submit</button>
+                    </form>
 
-                    <!-- Text Boxes and Other User Inputs. Note ng-model binds the values to Angular $scope -->
-                    <div class="form-group">
-                        <label for="username">Festival Name </label>
-                        <input type="text" class="form-control" id="username" placeholder="Gotta Catch 'Em All" ng-model="formData.festivalName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="age">Start date time</label>
-                        <input type="date" class="form-control" id="startDate" placeholder="" ng-model="formData.startDate" required>
-                        <input type="time" class="form-control" id="startDateTime" placeholder="" ng-model="formData.startDateTime" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="language">End date time</label>
-                        <input type="date" class="form-control" id="endDate" placeholder="" ng-model="formData.endDate" >
-                        <input type="time" class="form-control" id="endDateTime" placeholder="" ng-model="formData.endDateTime" >
-                    </div>
-
-                    <div class="form-group">
-                        <label for="latitude">Latitude</label>
-                        <input type="text" class="form-control" id="latitude" value="39.500" ng-model="formData.latitude" readonly >
-                    </div>
-                    <div class="form-group">
-                        <label for="longitude">Longitude</label>
-                        <input type="text" class="form-control" id="longitude" value="-98.350" ng-model="formData.longitude" readonly>
-                    </div>
-                    <div class="form-group">
-                        <!-- Note RefreshLoc button tied to addCtrl. This requests a refresh of the HTML5 verified location. -->
-                        <label for="verified">HTML5 Verified Location? <span><button ng-click="refreshLoc()" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-refresh"></span></button></span></label>
-                        <input type="text" class="form-control" id="verified" placeholder= "Nope (Thanks for spamming my map...)" ng-model="formData.htmlverified" readonly>
-                    </div>
-
-                    <!-- Submit button. Note that its tied to createUser() function from addCtrl. Also note ng-disabled logic which prevents early submits.  -->
-                    <button type="submit" class="btn btn-danger btn-block" ng-click="createUser()" ng-disabled="addForm.$invalid">Submit</button>
-                </form>
-
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
 

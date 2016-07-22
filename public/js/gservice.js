@@ -16,9 +16,20 @@ angular.module('gservice', [])
         var lastMarker;
         var currentSelectedMarker;
 
-        // User Selected Location (initialize to center of America)
-        var selectedLat = 43.199719;
-        var selectedLong = -19.752733;
+        // User Selected Location (initialize to center in Central Park)
+        var selectedLat = 40.7828647;
+        var selectedLong = -73.9653551;
+
+        if (localStorage) {
+
+            var lastUserLatitude = localStorage.getItem('lastUserLatitude');
+            var lastUserLongitude = localStorage.getItem('lastUserLongitude');
+
+            if (lastUserLatitude != "undefined" && lastUserLatitude  != "null"  && lastUserLongitude != "undefined" && lastUserLongitude  != "null"   ) {
+                selectedLat = lastUserLatitude;
+                selectedLong = lastUserLongitude;
+            }
+        }
 
         // Functions
         // --------------------------------------------------------------
@@ -31,6 +42,9 @@ angular.module('gservice', [])
             // Set the selected lat and long equal to the ones provided on the refresh() call
             selectedLat = latitude;
             selectedLong = longitude;
+
+            localStorage.setItem('lastUserLatitude', latitude );
+            localStorage.setItem('lastUserLongitude', longitude);
 
             // If filtered results are provided in the refresh() call...
             if (filteredResults){
