@@ -1,27 +1,26 @@
 /* Space out content a bit */
 
 html, body {
-    margin: 0;
-    padding: 0;
     height: 100%;
     width: 100%;
-}
-
-
-
-body {
-    background: #333;
 }
 
 .fill {
     min-height: 100%;
     height: 100%;
+
+    padding-bottom: 123px;
 }
 
 
 .text-title {
     font-size: 30px;
     color: #eee;
+}
+
+.text-small {
+    font-size: 12px;
+
 }
 
 
@@ -35,6 +34,8 @@ body {
 
     color: #777;
     width: 100%;
+
+
 }
 
 .container-full {

@@ -17,15 +17,15 @@ angular.module('gservice', [])
         var currentSelectedMarker;
 
         // User Selected Location (initialize to center in Central Park)
-        var selectedLat = 40.7828647;
-        var selectedLong = -73.9653551;
+        var selectedLat = 40.78286470;
+        var selectedLong = -73.96535510;
 
         if (localStorage) {
 
             var lastUserLatitude = localStorage.getItem('lastUserLatitude');
             var lastUserLongitude = localStorage.getItem('lastUserLongitude');
 
-            if (lastUserLatitude != "undefined" && lastUserLatitude  != "null"  && lastUserLongitude != "undefined" && lastUserLongitude  != "null"   ) {
+            if ((lastUserLatitude != "undefined" && lastUserLatitude  != "null")  && (lastUserLongitude != "undefined" && lastUserLongitude  != "null"))  {
                 selectedLat = lastUserLatitude;
                 selectedLong = lastUserLongitude;
             }
@@ -120,6 +120,18 @@ angular.module('gservice', [])
         // Initializes the map
         var initialize = function(latitude, longitude, filter) {
 
+            if (latitude == "undefined" || latitude  == "null" || latitude  == null  || latitude == undefined
+                || longitude == "undefined" || longitude  ==  "null" || longitude  == null || longitude == undefined ) {
+                latitude = 40.78286470;
+                longitude = -73.96535510;
+            }
+
+            if (selectedLat == "undefined" || selectedLat  == "null" || selectedLat  == null  || latitude == undefined
+                || selectedLong == "undefined" || selectedLong  ==  "null" || selectedLong  == null || selectedLong == undefined ) {
+                selectedLat = 40.78286470;
+                selectedLong = -73.96535510;
+            }
+
             // Uses the selected lat, long as starting point
             var myLatLng = {lat: selectedLat, lng: selectedLong};
 
@@ -128,7 +140,7 @@ angular.module('gservice', [])
 
                 // Create a new map and place in the index.html page
                 var map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 14,
+                    zoom: 15,
                     center: myLatLng
                 });
             }
@@ -159,8 +171,11 @@ angular.module('gservice', [])
                 });
             });
 
+
+
+
             // Set initial location as a bouncing red marker
-            var initialLocation = new google.maps.LatLng(latitude, longitude);
+            var initialLocation = new google.maps.LatLng(parseFloat(latitude), parseFloat(longitude));
             var marker = new google.maps.Marker({
                 position: initialLocation,
                 //animation: google.maps.Animation.DROP,
@@ -193,13 +208,13 @@ angular.module('gservice', [])
                 // Update Broadcasted Variable (lets the panels know to change their lat, long values)
                 googleMapService.clickLat = marker.getPosition().lat();
                 googleMapService.clickLong = marker.getPosition().lng();
+
                 $rootScope.$broadcast("clicked");
             });
         };
 
         // Refresh the page upon window load. Use the initial latitude and longitude
-        google.maps.event.addDomListener(window, 'load',
-            googleMapService.refresh(selectedLat, selectedLong));
+        google.maps.event.addDomListener(window, 'load', googleMapService.refresh(selectedLat, selectedLong));
 
         return googleMapService;
     });
