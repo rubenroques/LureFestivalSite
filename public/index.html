@@ -8,20 +8,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css"/>
     <link rel="stylesheet" href="style.css"/>
+
+
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
 
     <!-- Google Maps API -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrn605l7RPadiwdzsOlRw9O28lxfYBJ6s"></script>
 
-    <!-- Modernizr -->
-    <script src="../bower_components/modernizr/bin/modernizr"></script>
 
     <!-- JS Source -->
     <script src="../bower_components/jquery/dist/jquery.js"></script>
     <script src="../bower_components/angular/angular.js"></script>
     <script src="../bower_components/angular-route/angular-route.js"></script>
     <script src="../bower_components/angularjs-geolocation/dist/angularjs-geolocation.min.js"></script>
+
 
     <!-- Angular Files -->
     <script src="js/app.js"></script>
@@ -31,16 +42,7 @@
     <script src="js/headerCtrl.js"></script>
 
 
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
-
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
-    <!-- Latest compiled JavaScript -->
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 </head>
 
@@ -82,7 +84,7 @@
                         <span class="sr-only">Close</span>
                     </button>
                     <h4 class="modal-title" id="myModalLabel">
-                        Modal title
+                        Create Lure Festival
                     </h4>
                 </div>
 
@@ -98,19 +100,18 @@
                             <input type="text" class="form-control" id="username" placeholder="Gotta Catch 'Em All" ng-model="formData.festivalName" required>
                         </div>
                         <div class="form-group">
-                            <label for="age">Start date time</label>
+                            <label for="startDate">Start date time</label>
                             <input type="date" class="form-control" id="startDate" placeholder="" ng-model="formData.startDate" required>
                             <input type="time" class="form-control" id="startDateTime" placeholder="" ng-model="formData.startDateTime" required>
                         </div>
                         <div class="form-group">
-                            <label for="language">End date time</label>
+                            <label for="endDate">End date time</label>
                             <input type="date" class="form-control" id="endDate" placeholder="" ng-model="formData.endDate" >
                             <input type="time" class="form-control" id="endDateTime" placeholder="" ng-model="formData.endDateTime" >
                         </div>
 
-
                         <div class="form-group">
-                            <span><button ng-click="refreshLoc()" class="btn btn-default btn-xs"> <i class="fa fa-location-arrow" aria-hidden="true"></i> </span>
+                            <span ng-click="refreshLoc()"> <button  class="btn btn-default btn-xs"> <i class="fa fa-location-arrow" aria-hidden="true"></i> Use my location </span>
                         </div>
 
                         <div class="form-group">
@@ -123,7 +124,7 @@
                         </div>
 
                         <!-- Submit button. Note that its tied to createUser() function from addCtrl. Also note ng-disabled logic which prevents early submits.  -->
-                        <button type="submit" class="btn btn-danger btn-block" ng-click="createUser()" ng-disabled="addForm.$invalid">Submit</button>
+                        <button type="submit" class="btn btn-danger btn-block" ng-click="createUser()" ng-disabled="addForm.$invalid">Create</button>
                     </form>
 
                 </div>
