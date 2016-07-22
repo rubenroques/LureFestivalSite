@@ -141,6 +141,10 @@ angular.module('gservice', [])
                 // Create a new map and place in the index.html page
                 var map = new google.maps.Map(document.getElementById('map'), {
                     zoom: 15,
+                    streetViewControl: false,
+                    zoomControlOptions: {
+                        position: google.maps.ControlPosition.RIGHT_CENTER
+                    },
                     center: myLatLng
                 });
             }
@@ -180,6 +184,7 @@ angular.module('gservice', [])
                 position: initialLocation,
                 //animation: google.maps.Animation.DROP,
                 map: map,
+
                 icon: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png'
             });
             lastMarker = marker;
