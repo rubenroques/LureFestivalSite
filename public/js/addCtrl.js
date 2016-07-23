@@ -58,22 +58,35 @@ addCtrl.controller('addCtrl', function($scope, $http, $rootScope, geolocation, g
             
         });
     };
-	
-	
+
+
     // Creates a new user based on the form fields
     $scope.createUser = function() {
-		var concatStartDate = $scope.formData.startDate +"T"+ $scope.formData.startDateTime;
-		var concatEndDate = $scope.formData.endDate +"T"+ $scope.formData.endDateTime;	
-	
+
+
+
+        //var teste = $scope.formData.startDate.toJSON();
+        var startDateDate = new Date($scope.formData.startDate);
+        var startDateTime = new Date($scope.formData.startDateTime);
+        var startDateMerge = new Date(startDateDate.getFullYear(), startDateDate.getMonth(), startDateDate.getDate(), startDateTime.getHours(), startDateTime.getMinutes(), startDateTime.getSeconds());
+
+        var endDateDate = new Date($scope.formData.endDate);
+        var endDateTime = new Date($scope.formData.endDateTime);
+        var endDateMerge = new Date(endDateDate.getFullYear(), endDateDate.getMonth(), endDateDate.getDate(), endDateTime.getHours(), endDateTime.getMinutes(), endDateTime.getSeconds());
+
+
         // Grabs all of the text box fields
         var festivalData = {
             festivalName: $scope.formData.festivalName,
-			location: [$scope.formData.longitude, $scope.formData.latitude],
-			created_at: $scope.formData.created_at,
-			updated_at: $scope.formData.updated_at,
-            startDate: concatStartDate,
-			endDate: concatEndDate
+            location: [$scope.formData.longitude, $scope.formData.latitude],
+            created_at: $scope.formData.created_at,
+            updated_at: $scope.formData.updated_at,
+            startDate: startDateMerge,
+            endDate: endDateMerge
         };
+
+
+
 
         // Saves the user data to the db
         $http.post('/users', festivalData)

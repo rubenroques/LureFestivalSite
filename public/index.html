@@ -3,9 +3,10 @@
 <html class="no-js" ng-app="meanMapApp">
 <head>
     <meta charset="utf-8">
-    <title>Lure Festivals</title>
+    <title>Lure Festival</title>
     <meta name="description" content="Search and Create PokemonGo Lure Festivals around you" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
 
     <!-- CSS -->
     <link rel="stylesheet" href="style.css"/>
@@ -49,91 +50,102 @@
 <body>
 
 
-    <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation" >
-        <div class="navbar-header">
-            <a class="navbar-brand " href="#" >Lure Festival </a>
-            <a  type="button" class="btn navbar-btn pull-right" data-toggle="modal" data-target="#myModalHorizontal" >
-                <span class="glyphicon glyphicon-plus-sign "></span> Create Lure Festival
-            </a>
-        </div>
-    </nav>
-
-    <div class="container-full fill">
-        <div id="map"></div>
+<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation" >
+    <div class="navbar-header">
+        <a class="navbar-brand " href="#" >Lure Festival </a>
+        <a  type="button" class="btn navbar-btn pull-right" data-toggle="modal" data-target="#myModalHorizontal" >
+            <span class="glyphicon glyphicon-plus-sign "></span> Create Lure Festival
+        </a>
     </div>
+</nav>
 
-    <!-- Footer -->
-    <div class="footer">
-        <p class="text-center text-small">
-            © LureFestival.com 2016. All rights reserved.
-            <br>
-            <i class="fa fa-ticket "></i> <a href="https://scotch.io/">Support</a>  |
-            <i class="fa fa-twitter"></i>  <a href="https://github.com/afhaque/MeanMapAppV2.0">Twitter</a>
-            <br>
-            Created by <a href="http://www.thinknr.com/">Thinknr.com</a>
-        </p>
-    </div>
+<div class="container-full fill">
+    <div id="map"></div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+    <p class="text-center text-small">
+        © LureFestival.com 2016. All rights reserved.
+        <br>
+        <i class="fa fa-ticket "></i> <a href="https://scotch.io/">Support</a>  |
+        <i class="fa fa-twitter"></i>  <a href="https://github.com/afhaque/MeanMapAppV2.0">Twitter</a>
+        <br>
+        Created by <a href="http://www.thinknr.com/">Thinknr.com</a>
+    </p>
+</div>
 
 
-    <!-- Modal -->
-    <div class="modal fade" id="myModalHorizontal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" ng-controller = "addCtrl" >
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <button type="button" class="close"
-                            data-dismiss="modal">
-                        <span aria-hidden="true">&times;</span>
-                        <span class="sr-only">Close</span>
-                    </button>
-                    <h4 class="modal-title" id="myModalLabel">
-                        Create Lure Festival
-                    </h4>
-                </div>
-
-                <!-- Modal Body -->
-                <div class="modal-body">
-
-                    <!-- Creates Form (novalidate disables HTML validation, Angular will control) -->
-                    <form name ="addForm" novalidate>
-
-                        <!-- Text Boxes and Other User Inputs. Note ng-model binds the values to Angular $scope -->
-                        <div class="form-group">
-                            <label for="username">Festival Name </label>
-                            <input type="text" class="form-control" id="username" placeholder="Gotta Catch 'Em All" ng-model="formData.festivalName" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="startDate">Start date time</label>
-                            <input type="date" class="form-control" id="startDate" placeholder="" ng-model="formData.startDate" required>
-                            <input type="time" class="form-control" id="startDateTime" placeholder="" ng-model="formData.startDateTime" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="endDate">End date time</label>
-                            <input type="date" class="form-control" id="endDate" placeholder="" ng-model="formData.endDate" >
-                            <input type="time" class="form-control" id="endDateTime" placeholder="" ng-model="formData.endDateTime" >
-                        </div>
-
-                        <div class="form-group">
-                            <span ng-click="refreshLoc()"> <button  class="btn btn-default btn-xs"> <i class="fa fa-location-arrow" aria-hidden="true"></i> Use my location </span>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="latitude">Latitude</label>
-                            <input type="text" class="form-control" id="latitude" value="39.500" ng-model="formData.latitude" readonly >
-                        </div>
-                        <div class="form-group">
-                            <label for="longitude">Longitude</label>
-                            <input type="text" class="form-control" id="longitude" value="-98.350" ng-model="formData.longitude" readonly>
-                        </div>
-
-                        <!-- Submit button. Note that its tied to createUser() function from addCtrl. Also note ng-disabled logic which prevents early submits.  -->
-                        <button type="submit" class="btn btn-danger btn-block" ng-click="createUser()" ng-disabled="addForm.$invalid">Create</button>
-                    </form>
-
-                </div>
+<!-- Modal -->
+<div class="modal fade" id="myModalHorizontal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" ng-controller = "addCtrl" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title text-center" id="myModalLabel">
+                    Create Lure Festival
+                </h4>
             </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+
+
+                <!-- Creates Form (novalidate disables HTML validation, Angular will control) -->
+                <form name ="addForm" novalidate>
+
+                    <!-- Text Boxes and Other User Inputs. Note ng-model binds the values to Angular $scope -->
+                    <div class="form-group">
+                        <label for="username">Festival Name </label> <label class="label-required" for="startDate">(*required)</label>
+                        <input type="text" class="form-control" id="username" placeholder="Gotta Catch 'Em All" ng-model="formData.festivalName" required>
+                    </div>
+
+                    <hr class="separator">
+
+                    <div class="form-group">
+                        <label for="startDate">Start date and time</label> <label class="label-required" for="startDate">(*required)</label>
+                        <input type="date" class="form-control" id="startDate" placeholder="Start date" ng-model="formData.startDate" required>
+                        <input type="time" class="form-control" id="startDateTime" placeholder="Start time" ng-model="formData.startDateTime" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="endDate">End date and time</label>
+                        <input type="date" class="form-control" id="endDate" placeholder="End date" ng-model="formData.endDate" >
+                        <input type="time" class="form-control" id="endDateTime" placeholder="End time" ng-model="formData.endDateTime" >
+                    </div>
+
+                    <hr class="separator">
+
+                    <button ng-click="refreshLoc()"  type="submit" class="btn btn-default" style="margin-bottom: 8px;" >Refresh my location</button>
+
+                    <div class="form-group">
+                        <label for="latitude">Latitude</label>
+                        <input type="text" class="form-control" id="latitude" value="0" ng-model="formData.latitude" readonly >
+                    </div>
+                    <div class="form-group">
+                        <label for="longitude">Longitude</label>
+                        <input type="text" class="form-control" id="longitude" value="0" ng-model="formData.longitude" readonly>
+                    </div>
+
+
+
+                </form>
+
+
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success btn-block" ng-click="createUser()" ng-disabled="addForm.$invalid">🎉 Schedule Lure Festival 🎉</button>
+            </div>
+
         </div>
     </div>
+</div>
 
 
 

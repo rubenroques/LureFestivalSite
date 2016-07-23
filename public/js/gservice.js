@@ -154,7 +154,7 @@ angular.module('gservice', [])
                 icon = "https://maps.google.com/mapfiles/ms/icons/yellow-dot.png";
             }
             else{
-                icon = "https://maps.google.com/mapfiles/ms/icons/blue-dot.png";
+                icon = "./map_marker_normal.png";
             }
 
             // Loop through each location in the array and place a marker
@@ -184,8 +184,8 @@ angular.module('gservice', [])
                 position: initialLocation,
                 //animation: google.maps.Animation.DROP,
                 map: map,
+                icon: './map_marker_normal_2.png'
 
-                icon: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png'
             });
             lastMarker = marker;
 
@@ -198,7 +198,7 @@ angular.module('gservice', [])
                     position: e.latLng,
                     //animation: google.maps.Animation.DROP,
                     map: map,
-                    icon: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png'
+                    icon: './map_marker_normal_2.png'
                 });
 
                 // When a new spot is selected, delete the old red bouncing marker
