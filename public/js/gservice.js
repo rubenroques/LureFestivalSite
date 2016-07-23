@@ -2,6 +2,32 @@
 angular.module('gservice', [])
     .factory('gservice', function($rootScope, $http){
 
+
+        var blue_marker_icon = {
+            url: "./images/blue_marker.png",
+            scale: 1,
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(35,70),
+            scaledSize: new google.maps.Size(70,70)
+        };
+
+        var pink_marker_icon = {
+            url: "./images/pink_marker.png",
+            scale: 1,
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(35,70),
+            scaledSize: new google.maps.Size(70,70)
+        };
+
+        var ball_marker_icon = {
+            url: "./images/ball_marker.png",
+            scale: 1,
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(35,70),
+            scaledSize: new google.maps.Size(70,70)
+        };
+
+
         // Initialize Variables
         // -------------------------------------------------------------
         // Service our factory will return
@@ -85,7 +111,7 @@ angular.module('gservice', [])
                 var user = response[i];
 
                 // Create popup windows for each record
-                var  contentString = '<p><b>Username</b>: ' + user.username + '<br><b>Age</b>: ' + user.age + '<br>' +
+                var  contentString = '<p><b>Name</b>: ' + user.name + '<br><b>Age</b>: ' + user.age + '<br>' +
                     '<b>Gender</b>: ' + user.gender + '<br><b>Favorite Language</b>: ' + user.favlang + '</p>';
 
                 // Converts each of the JSON records into Google Maps Location format (Note Lat, Lng format).
@@ -95,10 +121,7 @@ angular.module('gservice', [])
                         content: contentString,
                         maxWidth: 320
                     }),
-                    user.username,
-                    user.gender,
-                    user.age,
-                    user.favlang
+                    user.name,''
                 ))
             }
             // location is now an array populated with records in Google Maps format
@@ -106,16 +129,12 @@ angular.module('gservice', [])
         };
 
         // Constructor for generic location
-        var Location = function(latlon, message, username, gender, age, favlang){
+        var Location = function(latlon, name, startDateTime, endDateTime){
             this.latlon = latlon;
-            this.message = message;
-            this.username = username;
-            this.gender = gender;
-            this.age = age;
-            this.favlang = favlang
+            this.name = name;
+            this.startDateTime;
+            this.endDateTime;
         };
-
-
 
         // Initializes the map
         var initialize = function(latitude, longitude, filter) {
@@ -138,6 +157,16 @@ angular.module('gservice', [])
             // If map has not been created...
             if (!map){
 
+                var myStyles =[
+                    {
+                        featureType: "poi",
+                        elementType: "labels",
+                        stylers: [
+                            { visibility: "off" }
+                        ]
+                    }
+                ];
+
                 // Create a new map and place in the index.html page
                 var map = new google.maps.Map(document.getElementById('map'), {
                     zoom: 15,
@@ -145,34 +174,42 @@ angular.module('gservice', [])
                     zoomControlOptions: {
                         position: google.maps.ControlPosition.RIGHT_CENTER
                     },
+                    styles:myStyles,
                     center: myLatLng
                 });
             }
 
-            // If a filter was used set the icons yellow, otherwise blue
-            if(filter){
-                icon = "https://maps.google.com/mapfiles/ms/icons/yellow-dot.png";
-            }
-            else{
-                icon = "./map_marker_normal.png";
-            }
-
             // Loop through each location in the array and place a marker
-            locations.forEach(function(n, i){
-               var marker = new google.maps.Marker({
-                   position: n.latlon,
-                   map: map,
-                   title: "Big Map",
-                   icon: icon,
-               });
+            locations.forEach(function(location, index){
+
+                //console.log(JSON.stringify(location, null, 2));
+                console.log(location);
+
+                // If a filter was used set the icons yellow, otherwise blue
+                if(location.name){
+                    icon = pink_marker_icon;
+                }
+                else{
+                    icon = blue_marker_icon;
+                }
+
+
+                var marker = new google.maps.Marker({
+                    position: location.latlon,
+                    map: map,
+                    icon: icon
+                });
 
                 // For each marker created, add a listener that checks for clicks
                 google.maps.event.addListener(marker, 'click', function(e){
 
                     // When clicked, open the selected marker's message
-                    currentSelectedMarker = n;
+                    currentSelectedMarker = location;
                     n.message.open(map, marker);
                 });
+
+
+
             });
 
 
@@ -182,9 +219,8 @@ angular.module('gservice', [])
             var initialLocation = new google.maps.LatLng(parseFloat(latitude), parseFloat(longitude));
             var marker = new google.maps.Marker({
                 position: initialLocation,
-                //animation: google.maps.Animation.DROP,
                 map: map,
-                icon: './map_marker_normal_2.png'
+                icon: ball_marker_icon
 
             });
             lastMarker = marker;
@@ -192,13 +228,14 @@ angular.module('gservice', [])
             // Function for moving to a selected location
             map.panTo(new google.maps.LatLng(latitude, longitude));
 
+
+
             // Clicking on the Map moves the bouncing red marker
             google.maps.event.addListener(map, 'click', function(e){
                 var marker = new google.maps.Marker({
                     position: e.latLng,
-                    //animation: google.maps.Animation.DROP,
                     map: map,
-                    icon: './map_marker_normal_2.png'
+                    icon: ball_marker_icon
                 });
 
                 // When a new spot is selected, delete the old red bouncing marker
