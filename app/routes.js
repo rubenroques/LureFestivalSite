@@ -29,7 +29,7 @@ module.exports = function(app) {
     // Provides method for saving new users in the db
     app.post('/users', function(req, res){
 
-        // Creates a new Festival based on the Mongoose schema and the post bo.dy
+        // Creates a new Festival based on the Mongoose schema and the post body
         var newuser = new Festival(req.body);
 
         // New Festival is saved in the db.
