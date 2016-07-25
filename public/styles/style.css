@@ -1,0 +1,111 @@
+/* Space out content a bit */
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+.fill {
+    min-height: 100%;
+    height: 100%;
+}
+
+.text-title {
+    font-size: 30px;
+    color: #eee;
+}
+
+.text-small {
+    font-size: 12px;
+}
+
+.footer {
+    color: #777;
+    background-color: rgb(204, 204, 204);
+
+    padding-top: 10px;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+
+}
+
+.header-map-search-wrapper{
+    text-align:right
+}
+
+.header-map-locate{
+    display:inline-block;
+    width:28px;
+    height:28px;
+    line-height:28px;
+    color:#aaa;
+    text-decoration:none;
+    text-align:center;
+    vertical-align:bottom;
+    border-radius:3px;
+    transition:all 0.15s ease-in-out
+}
+
+.label-required {
+    font-size: 11px;
+    font-weight: 400;
+}
+.container-full {
+    margin: 0px auto;
+    width: 100%;
+}
+
+
+#map {
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    padding-bottom: 60px;
+}
+
+.modal-body .col-sm-2,
+.modal-body .col-sm-10 {
+    width: 100%
+}
+
+.modal-body .control-label {
+    text-align: left;
+}
+.modal-body .col-sm-offset-2 {
+    margin-left: 15px;
+}
+
+
+
+.navbar-header{
+    margin-left:5px;
+    margin-right:5px;
+    width:100%;
+}
+
+.navbar-inverse .navbar-btn {
+
+    background-color: #8bc34a;
+    border-color: #333333;
+    color: white;
+
+}
+.navbar-inverse .navbar-btn:hover {
+    color: #ffffff;
+    background-color: #6a9735;
+}
+
+.navbar {
+    margin-bottom: 0px !important;
+}
+
+.btn:focus {
+    outline: none;
+}
+
+* {
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    border-radius: 0 !important;
+}

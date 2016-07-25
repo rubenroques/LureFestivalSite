@@ -1,65 +1,57 @@
 <!doctype html>
-<!-- Declares meanMapApp as the starting Angular module -->
-<html class="no-js" ng-app="meanMapApp">
+
+<html class="no-js" ng-app="lureFestivalApp">
+
 <head>
     <meta charset="utf-8">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="description" content="Search and Create PokemonGo Lure Festivals around you" >
 
     <title>Lure Festival</title>
-    <meta name="description" content="Search and Create PokemonGo Lure Festivals around you" >
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="style.css"/>
-
-
-
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
-
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
 
     <!-- Google Maps API -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrn605l7RPadiwdzsOlRw9O28lxfYBJ6s"></script>
 
+    <!-- CSS -->
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="styles/style.css"/>
 
     <!-- JS Source -->
-    <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="../bower_components/angular/angular.js"></script>
     <script src="../bower_components/angular-route/angular-route.js"></script>
     <script src="../bower_components/angularjs-geolocation/dist/angularjs-geolocation.min.js"></script>
 
-
     <!-- Angular Files -->
     <script src="js/app.js"></script>
     <script src="js/gservice.js"></script>
-    <script src="js/addCtrl.js"></script>
+    <script src="js/createLureController.js"></script>
     <script src="js/queryCtrl.js"></script>
-    <script src="js/headerCtrl.js"></script>
-
-
-
 
 </head>
 
-<body>
-
+<body ng-controller = "createLureController" >
 
 <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation" >
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand " href="#" >Lure Festival </a>
-            <a  type="button" class="btn navbar-btn pull-right" data-toggle="modal" data-target="#myModalHorizontal" >
-                <span class="glyphicon glyphicon-plus-sign "></span> Create Lure Festival
-            </a>
+            <a class="navbar-brand"  href="/" >Lure Festival </a>
+
+            <div class="btn-toolbar pull-right">
+                <a  ng-click="refreshLoc()"  type="button" href="#" class="btn navbar-btn" title="Automatically scroll to my current location (requires browser permissions)">
+                    <span class="glyphicon glyphicon-screenshot"></span>
+                    <span class="hidden-xs" >Use my location</span>
+                </a>
+                <a  type="button" class="btn navbar-btn " data-toggle="modal" data-target="#myModalHorizontal" title="Create new Lure Festival" >
+                    <span class="glyphicon glyphicon-plus-sign "></span>
+                    <span class="hidden-xs" >Create Festival</span>
+                </a>
+            </div>
+
         </div>
+    </div>
     </div>
 </nav>
 
@@ -71,19 +63,19 @@
 <div class="footer">
     <div class="container">
         <p class="text-center text-small">
-        © LureFestival.com 2016. All rights reserved.
-        <br>
-        <i class="fa fa-ticket "></i> <a href="https://scotch.io/">Support</a>  |
-        <i class="fa fa-twitter"></i>  <a href="https://github.com/afhaque/MeanMapAppV2.0">Twitter</a>
-        <br>
-        Created by <a href="http://www.thinknr.com/">Thinknr.com</a>
-    </p>
+            © LureFestival.com 2016. All rights reserved.
+            <br>
+            <i class="fa fa-ticket "></i> <a href="https://scotch.io/">Support</a>  |
+            <i class="fa fa-twitter"></i>  <a href="https://github.com/afhaque/MeanMapAppV2.0">Twitter</a>
+            <br>
+            Created by <a href="http://www.thinknr.com/">Thinknr.com</a>
+        </p>
     </div>
 </div>
 
 
 <!-- Modal -->
-<div class="modal fade" id="myModalHorizontal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" ng-controller = "addCtrl" >
+<div class="modal fade" id="myModalHorizontal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Modal Header -->
@@ -108,7 +100,7 @@
                     <!-- Text Boxes and Other User Inputs. Note ng-model binds the values to Angular $scope -->
                     <div class="form-group">
                         <label for="username">Festival Name </label> <label class="label-required" for="startDate">(*required)</label>
-                        <input type="text" class="form-control" id="username" placeholder="Gotta Catch 'Em All" ng-model="formData.festivalName" required>
+                        <input type="text" class="form-control" id="username" placeholder="Gotta Catch 'Em All" ng-model="formData.name" required>
                     </div>
 
                     <hr class="separator">
@@ -126,8 +118,6 @@
 
                     <hr class="separator">
 
-                    <button ng-click="refreshLoc()"  type="submit" class="btn btn-default" style="margin-bottom: 8px;" >Refresh my location</button>
-
                     <div class="form-group">
                         <label for="latitude">Latitude</label>
                         <input type="text" class="form-control" id="latitude" value="0" ng-model="formData.latitude" readonly >
@@ -137,11 +127,7 @@
                         <input type="text" class="form-control" id="longitude" value="0" ng-model="formData.longitude" readonly>
                     </div>
 
-
-
                 </form>
-
-
 
             </div>
 
@@ -154,6 +140,16 @@
 </div>
 
 
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-81255423-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
 
 </body>
 </html>

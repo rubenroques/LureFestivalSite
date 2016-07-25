@@ -1,6 +1,6 @@
 // Dependencies
 var mongoose        = require('mongoose');
-var User            = require('./model.js');
+var Festival            = require('./model.js');
 
 
 // Opens App Routes
@@ -12,7 +12,7 @@ module.exports = function(app) {
     app.get('/users', function(req, res){
 
         // Uses Mongoose schema to run the search (empty conditions)
-        var query = User.find({});
+        var query = Festival.find({});
 
         query.exec(function(err, users){
             if(err) {
@@ -29,10 +29,10 @@ module.exports = function(app) {
     // Provides method for saving new users in the db
     app.post('/users', function(req, res){
 
-        // Creates a new User based on the Mongoose schema and the post bo.dy
-        var newuser = new User(req.body);
+        // Creates a new Festival based on the Mongoose schema and the post bo.dy
+        var newuser = new Festival(req.body);
 
-        // New User is saved in the db.
+        // New Festival is saved in the db.
         newuser.save(function(err){
             if(err)
                 res.send(err);
@@ -58,7 +58,7 @@ module.exports = function(app) {
         var reqVerified     = req.body.reqVerified;
 
         // Opens a generic Mongoose Query. Depending on the post body we will...
-        var query = User.find({});
+        var query = Festival.find({});
 
         // ...include filter by Max Distance (converting miles to meters)
         if(distance){
@@ -108,12 +108,12 @@ module.exports = function(app) {
 
     // DELETE Routes (Dev Only)
     // --------------------------------------------------------
-    // Delete a User off the Map based on objID
+    // Delete a Festival off the Map based on objID
     app.delete('/users/:objID', function(req, res){
         var objID = req.params.objID;
         var update = req.body;
 
-        User.findByIdAndRemove(objID, update, function(err, user){
+        Festival.findByIdAndRemove(objID, update, function(err, user){
             if(err)
                 res.send(err);
             else

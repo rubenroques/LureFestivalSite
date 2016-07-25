@@ -4,12 +4,16 @@ var Schema      = mongoose.Schema;
 
 // Creates a User Schema. This will be the basis of how user data is stored in the db
 var FestivalSchema = new Schema({
-    festivalName: {type: String, required: true},       
+    name: {type: String, required: true},
     location: {type: [Number], required: true}, // [Long, Lat]
-    created_at: {type: Date, default: Date.now},
-    updated_at: {type: Date, default: Date.now},
+
 	startDate: {type: Date, required: true},
-	endDate:  {type: Date, required: true}
+	endDate:  {type: Date, required: true},
+
+    editionKey: {type:String, required:true},
+
+    created_at: {type: Date, default: Date.now},
+    updated_at: {type: Date, default: Date.now}
 });
 
 // Sets the created_at parameter equal to the current time

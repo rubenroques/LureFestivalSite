@@ -1,6 +1,9 @@
+
+
 // Creates the gservice factory. This will be the primary means by which we interact with Google Maps
 angular.module('gservice', [])
-    .factory('gservice', function($rootScope, $http){
+    .factory('gservice', function($rootScope, $http, $filter){
+
 
 
         var blue_marker_icon = {
@@ -28,6 +31,17 @@ angular.module('gservice', [])
         };
 
 
+        // Constructor for generic location
+        var LocationPoint = function(latlon, name, startDateTime, endDateTime,infoWindowString) {
+            this.latlon = latlon;
+            this.name = name;
+            this.startDateTime = startDateTime;
+            this.endDateTime = endDateTime;
+            this.infoWindowString = infoWindowString;
+        };
+
+
+
         // Initialize Variables
         // -------------------------------------------------------------
         // Service our factory will return
@@ -40,7 +54,9 @@ angular.module('gservice', [])
 
         // Variables we'll use to help us pan to the right spot
         var lastMarker;
+        var lastInfoWindow;
         var currentSelectedMarker;
+        var initialZoomLevel = 13;
 
         // User Selected Location (initialize to center in Central Park)
         var selectedLat = 40.78286470;
@@ -72,29 +88,18 @@ angular.module('gservice', [])
             localStorage.setItem('lastUserLatitude', latitude );
             localStorage.setItem('lastUserLongitude', longitude);
 
-            // If filtered results are provided in the refresh() call...
-            if (filteredResults){
+            // Perform an AJAX call to get all of the records in the db.
+            $http.get('/users').success(function(response){
 
-                // Then convert the filtered results into map points.
-                locations = convertToMapPoints(filteredResults);
+                // Then convert the results into map points
+                locations = convertToMapPoints(response);
 
-                // Then, initialize the map -- noting that a filter was used (to mark icons yellow)
-                initialize(latitude, longitude, true);
-            }
+                // Then initialize the map -- noting that no filter was used.
+                initialize(latitude, longitude, false);
 
-            // If no filter is provided in the refresh() call...
-            else {
+            }).error(function(){});
 
-                // Perform an AJAX call to get all of the records in the db.
-                $http.get('/users').success(function(response){
 
-                    // Then convert the results into map points
-                    locations = convertToMapPoints(response);
-
-                    // Then initialize the map -- noting that no filter was used.
-                    initialize(latitude, longitude, false);
-                }).error(function(){});
-            }
         };
 
         // Private Inner Functions
@@ -108,33 +113,28 @@ angular.module('gservice', [])
 
             // Loop through all of the JSON entries provided in the response
             for(var i= 0; i < response.length; i++) {
-                var user = response[i];
+                var festival = response[i];
+
+                var startDateString = $filter('date')(festival.startDate,"HH:mm - dd/MM/yyyy");
+                var endDateString = $filter('date')(festival.endDate,"HH:mm - dd/MM/yyyy");
+
 
                 // Create popup windows for each record
-                var  contentString = '<p><b>Name</b>: ' + user.name + '<br><b>Age</b>: ' + user.age + '<br>' +
-                    '<b>Gender</b>: ' + user.gender + '<br><b>Favorite Language</b>: ' + user.favlang + '</p>';
+                var  contentString = '<p><b>Festival Name</b>: ' + festival.name + '<br><b>Start</b>: ' + startDateString + '<br>' +
+                    '<b>End:</b>: ' + endDateString + '</p>';
+
+                var infoWindow = new google.maps.InfoWindow({ content: contentString,  maxWidth: 310 });
+                var coordinate = new google.maps.LatLng(festival.location[1], festival.location[0]);
+
+                var location = new LocationPoint( coordinate,  festival.name,  new Date(festival.startDate),  new Date(festival.endDate), infoWindow );
 
                 // Converts each of the JSON records into Google Maps Location format (Note Lat, Lng format).
-                locations.push(new Location(
-                    new google.maps.LatLng(user.location[1], user.location[0]),
-                    new google.maps.InfoWindow({
-                        content: contentString,
-                        maxWidth: 320
-                    }),
-                    user.name,''
-                ))
+                locations.push(location)
             }
             // location is now an array populated with records in Google Maps format
             return locations;
         };
 
-        // Constructor for generic location
-        var Location = function(latlon, name, startDateTime, endDateTime){
-            this.latlon = latlon;
-            this.name = name;
-            this.startDateTime;
-            this.endDateTime;
-        };
 
         // Initializes the map
         var initialize = function(latitude, longitude, filter) {
@@ -169,7 +169,7 @@ angular.module('gservice', [])
 
                 // Create a new map and place in the index.html page
                 var map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 15,
+                    zoom: initialZoomLevel,
                     streetViewControl: false,
                     zoomControlOptions: {
                         position: google.maps.ControlPosition.RIGHT_CENTER
@@ -179,14 +179,19 @@ angular.module('gservice', [])
                 });
             }
 
+            var now = new Date();
+
             // Loop through each location in the array and place a marker
             locations.forEach(function(location, index){
 
-                //console.log(JSON.stringify(location, null, 2));
                 console.log(location);
+                console.log(location.startDateTime);
 
-                // If a filter was used set the icons yellow, otherwise blue
-                if(location.name){
+                console.log(location.endDateTime);
+                console.log(now);
+
+
+                if(now > location.startDateTime && now < location.endDateTime ){
                     icon = pink_marker_icon;
                 }
                 else{
@@ -203,12 +208,15 @@ angular.module('gservice', [])
                 // For each marker created, add a listener that checks for clicks
                 google.maps.event.addListener(marker, 'click', function(e){
 
+                    if(lastInfoWindow){
+                        lastInfoWindow.close();
+                    }
+
+                    lastInfoWindow = location.infoWindowString;
                     // When clicked, open the selected marker's message
                     currentSelectedMarker = location;
-                    n.message.open(map, marker);
+                    location.infoWindowString.open(map, marker);
                 });
-
-
 
             });
 
@@ -254,6 +262,18 @@ angular.module('gservice', [])
                 $rootScope.$broadcast("clicked");
             });
         };
+
+        // Refresh the Map with new data. Takes three parameters (lat, long, and filtering results)
+        googleMapService.hideUserLocation = function(){
+
+            // Clears the holding array of locations
+            // When a new spot is selected, delete the old red bouncing marker
+            if(lastMarker){
+                lastMarker.setMap(null);
+            }
+
+         };
+
 
         // Refresh the page upon window load. Use the initial latitude and longitude
         google.maps.event.addDomListener(window, 'load', googleMapService.refresh(selectedLat, selectedLong));

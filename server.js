@@ -2,12 +2,16 @@
 // -----------------------------------------------------
 var express         = require('express');
 var mongoose        = require('mongoose');
-var port            = process.env.PORT || 3750;
 var database        = require('./app/config');
 var morgan          = require('morgan');
 var bodyParser      = require('body-parser');
 var methodOverride  = require('method-override');
+var decay           = require('decay');
+
+var port            = process.env.PORT || 3750;
+
 var app             = express();
+
 
 // Express Configuration
 // -----------------------------------------------------
