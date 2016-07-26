@@ -56,7 +56,7 @@ angular.module('gservice', [])
         var lastMarker;
         var lastInfoWindow;
         var currentSelectedMarker;
-        var initialZoomLevel = 13;
+        var initialZoomLevel = 15;
 
         // User Selected Location (initialize to center in Central Park)
         var selectedLat = 40.78286470;
