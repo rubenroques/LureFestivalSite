@@ -120,8 +120,11 @@ angular.module('gservice', [])
 
 
                 // Create popup windows for each record
-                var  contentString = '<p><b>Festival Name</b>: ' + festival.name + '<br><b>Start</b>: ' + startDateString + '<br>' +
-                    '<b>End:</b>: ' + endDateString + '</p>';
+                var  contentString = '<p id="hook"  style="color:white;text-align:center;">'+
+					'<b> ' + festival.name + '</b> <br>'+
+					'<b>Start</b>: ' + startDateString + '<br>' +
+                    '<b>End:</b>: ' + endDateString + '</p>' + 
+					'<div style="color:#E63946;text-align:center;"> Div To Social Stuff </div>';
 
                 var infoWindow = new google.maps.InfoWindow({ content: contentString,  maxWidth: 310 });
                 var coordinate = new google.maps.LatLng(festival.location[1], festival.location[0]);
@@ -130,11 +133,22 @@ angular.module('gservice', [])
 
                 // Converts each of the JSON records into Google Maps Location format (Note Lat, Lng format).
                 locations.push(location)
+				
+				
+				google.maps.event.addListener(infoWindow, 'domready', function() {					
+					var l = $('#hook').parent().parent().parent().siblings().children();
+						$(l[3]).css('background-color', '#2B2D42');				
+						var child = $(l[2]).children();
+						$(child[0]).children().css('background-color', '#2B2D42');
+						$(child[1]).children().css('background-color', '#2B2D42');						
+				});
+					
             }
             // location is now an array populated with records in Google Maps format
             return locations;
         };
 
+		
 
         // Initializes the map
         var initialize = function(latitude, longitude, filter) {
