@@ -40,11 +40,11 @@
             <a class="navbar-brand"  href="/" >Lure Festival </a>
 
             <div class="btn-toolbar pull-right">
-                <a  ng-click="refreshLoc()"  type="button" href="#" class="btn navbar-btn" title="Automatically scroll to my current location (requires browser permissions)">
+                <a ng-click="refreshLoc()"  type="button"  class="btn navbar-btn" title="Automatically scroll to my current location (requires browser permissions)">
                     <span class="glyphicon glyphicon-screenshot"></span>
                     <span class="hidden-xs" >Use my location</span>
                 </a>
-                <a  type="button" class="btn navbar-btn " data-toggle="modal" data-target="#myModalHorizontal" title="Create new Lure Festival" >
+                <a type="button" class="btn navbar-btn " data-toggle="modal" data-target="#myModalHorizontal" title="Create new Lure Festival" >
                     <span class="glyphicon glyphicon-plus-sign "></span>
                     <span class="hidden-xs" >Create Festival</span>
                 </a>
@@ -55,7 +55,7 @@
     </div>
 </nav>
 
-<div class="container-full fill">
+<div class="container-full fill map-bottom-spacer">
     <div id="map"></div>
 </div>
 
@@ -63,12 +63,11 @@
 <div class="footer">
     <div class="container">
         <p class="text-center text-small">
-            © LureFestival.com 2016. All rights reserved.
+
+            <a href="mailto:support@thinknr.com"><i class="fa fa-ticket "></i>  Support</a>  |
+            <a href="https://twitter.com"> <i class="fa fa-twitter"></i>    Twitter</a>
             <br>
-            <i class="fa fa-ticket "></i> <a href="mailto:support@thinknr.com">Support</a>  |
-            <i class="fa fa-twitter"></i>  <a href="https://twitter.com">Twitter</a>
-            <br>
-            Created by <a href="http://www.thinknr.com/">Thinknr.com</a>
+            © <a href="https://www.lurefestival.com">LureFestival.com</a> 2016 - Created by <a href="http://www.thinknr.com/">Thinknr.com</a>
         </p>
     </div>
 </div>
@@ -132,7 +131,7 @@
             </div>
 
             <div class="modal-footer">
-                <button type="submit" class="btn btn-success btn-block" ng-click="createUser()" ng-disabled="addForm.$invalid">🎉 Schedule Lure Festival 🎉</button>
+                <button type="submit" class="btn modal-submit btn-block" ng-click="createUser()" ng-disabled="addForm.$invalid">🎉 Schedule Lure Festival 🎉</button>
             </div>
 
         </div>

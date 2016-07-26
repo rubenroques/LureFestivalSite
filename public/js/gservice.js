@@ -8,26 +8,26 @@ angular.module('gservice', [])
 
         var blue_marker_icon = {
             url: "./images/blue_marker.png",
-            scale: 1,
+
             origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(35,70),
-            scaledSize: new google.maps.Size(70,70)
+            anchor: new google.maps.Point(17.5,35),
+            scaledSize: new google.maps.Size(35,35)
         };
 
         var pink_marker_icon = {
             url: "./images/pink_marker.png",
-            scale: 1,
+
             origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(35,70),
-            scaledSize: new google.maps.Size(70,70)
+            anchor: new google.maps.Point(17.5,35),
+            scaledSize: new google.maps.Size(35,35)
         };
 
         var ball_marker_icon = {
             url: "./images/ball_marker.png",
-            scale: 1,
+
             origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(35,70),
-            scaledSize: new google.maps.Size(70,70)
+            anchor: new google.maps.Point(17.5,35),
+            scaledSize: new google.maps.Size(35,35)
         };
 
 

@@ -26,6 +26,16 @@ FestivalSchema.pre('save', function(next){
     next();
 });
 
+FestivalSchema.methods.toJSON = function() {
+    var obj = this.toObject();
+    delete obj.created_at;
+    delete obj.updated_at;
+    delete obj._id;
+    delete obj.editionKey;
+    delete obj.__v;
+    return obj;
+};
+
 // Indexes this schema in geoJSON format (critical for running proximity searches)
 FestivalSchema.index({location: '2dsphere'});
 

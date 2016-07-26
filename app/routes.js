@@ -9,7 +9,7 @@ module.exports = function(app) {
     // GET Routes
     // --------------------------------------------------------
     // Retrieve records for all users in the db
-    app.get('/users', function(req, res){
+    app.get('/all-festivals', function(req, res){
 
         // Uses Mongoose schema to run the search (empty conditions)
         var query = Festival.find({});
@@ -23,6 +23,28 @@ module.exports = function(app) {
             }
         });
     });
+
+    // GET Routes
+    // --------------------------------------------------------
+    // Retrieve records for all users in the db
+    app.get('/users', function(req, res){
+
+        // Uses Mongoose schema to run the search (empty conditions)
+        var query = Festival.find( //query today up
+            {
+                "endDate": {"$gte": new Date((new Date()).getTime() - (2000*60*60)) }
+            });
+
+        query.exec(function(err, users){
+            if(err) {
+                res.send(err);
+            } else {
+                // If no errors are found, it responds with a JSON of all users
+                res.json(users);
+            }
+        });
+    });
+
 
     // POST Routes
     // --------------------------------------------------------
