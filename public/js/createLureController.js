@@ -119,9 +119,7 @@ createLureController.controller('createLureController', function($scope, $http, 
 
 
                 // Refresh the map with new data
-                //gservice.refresh($scope.formData.latitude, $scope.formData.longitude);
-
-                //gservice.hideUserLocation();
+                gservice.refresh($scope.formData.latitude, $scope.formData.longitude, false);
 
                 $('#myModalHorizontal').modal('toggle');
 
