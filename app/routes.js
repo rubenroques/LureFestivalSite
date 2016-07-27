@@ -128,18 +128,5 @@ module.exports = function(app) {
         });
     });
 
-    // DELETE Routes (Dev Only)
-    // --------------------------------------------------------
-    // Delete a Festival off the Map based on objID
-    app.delete('/users/:objID', function(req, res){
-        var objID = req.params.objID;
-        var update = req.body;
 
-        Festival.findByIdAndRemove(objID, update, function(err, user){
-            if(err)
-                res.send(err);
-            else
-                res.json(req.body);
-        });
-    });
 };
