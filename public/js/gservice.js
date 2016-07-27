@@ -2,7 +2,7 @@
 
 // Creates the gservice factory. This will be the primary means by which we interact with Google Maps
 angular.module('gservice', [])
-    .factory('gservice', function($rootScope, $http, $filter){
+    .factory('gservice', function($rootScope, $http, $filter, $window, $timeout){
 
 
 
@@ -105,8 +105,30 @@ angular.module('gservice', [])
         // Private Inner Functions
         // --------------------------------------------------------------
 
+
+
         // Convert a JSON of users into map points
         var convertToMapPoints = function(response){
+
+            function clickedOnGetDirection(festival) {
+
+                $timeout(function(){
+                    window.open('https://maps.google.com/?daddr='+festival.location[1]+','+festival.location[0], '_blank');
+                });
+            };
+
+            function clickedOnShareFacebook(festival) {
+
+                var path = "https://www.facebook.com/dialog/share?app_id=1060320987338519&display=popup&" +
+                    "href=https://www.lurefestival.com&" +
+                    "description="+festival.name+"&" +
+                    "name="+festival.name;
+
+                $timeout(function(){
+                    window.open(path , '_blank');
+                });
+
+            };
 
             // Clear the locations holder
             var locations = [];
@@ -118,15 +140,18 @@ angular.module('gservice', [])
                 var startDateString = $filter('date')(festival.startDate,"HH:mm - dd/MM/yyyy");
                 var endDateString = $filter('date')(festival.endDate,"HH:mm - dd/MM/yyyy");
 
-
                 // Create popup windows for each record
-                var  contentString = '<p id="hook"  style="color:white;text-align:center;">'+
-					'<b> ' + festival.name + '</b> <br>'+
-					'<b>Start</b>: ' + startDateString + '<br>' +
-                    '<b>End:</b>: ' + endDateString + '</p>' + 
-					'<div style="color:#E63946;text-align:center;"> Div To Social Stuff </div>';
+                var  contentString = '<p id="hook"  style="color:#dcdcdd; text-align:center; margin-left: 20px; width: 180px; margin-bottom: 16px; ">'+
+					'<b style="font-size: 21px;"> ' + festival.name + '</b> <br> </p> '+
+					'<p  id="bottom"  style="color:#dcdcdd; margin-left: 5px; width: 180px; margin-bottom: 16px; font-size: 14px "> <b>Start:</b>&nbsp;&nbsp;' + startDateString + '<br>' +
+                    '<b>End: </b>&nbsp;&nbsp;&nbsp;' + endDateString + '</>' +
+					'<div style="color:#E63946;text-align:center;"> <button id="clickable-facebook-button" >Share</button> ' +
+                    '<button id="clickable-button" >Directions to</button> </div>';
+
 
                 var infoWindow = new google.maps.InfoWindow({ content: contentString,  maxWidth: 310 });
+                infoWindow.set('festival',festival);
+
                 var coordinate = new google.maps.LatLng(festival.location[1], festival.location[0]);
 
                 var location = new LocationPoint( coordinate,  festival.name,  new Date(festival.startDate),  new Date(festival.endDate), infoWindow );
@@ -135,7 +160,23 @@ angular.module('gservice', [])
                 locations.push(location)
 				
 				
-				google.maps.event.addListener(infoWindow, 'domready', function() {					
+				google.maps.event.addListener(infoWindow, 'domready', function() {
+
+				    var festival = infoWindow.get('festival')
+
+                    $('#clickable-button').click(function() {
+
+                        clickedOnGetDirection(festival );
+
+                    });
+
+                    $('#clickable-facebook-button').click(function() {
+
+                        clickedOnShareFacebook(festival );
+
+                    });
+
+
 					var l = $('#hook').parent().parent().parent().siblings().children();
 						$(l[3]).css('background-color', '#2B2D42');				
 						var child = $(l[2]).children();
