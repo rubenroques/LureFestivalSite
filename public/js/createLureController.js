@@ -112,15 +112,19 @@ createLureController.controller('createLureController', function($scope, $http, 
 
                 // Once complete, clear the form (except location)
                 $scope.formData.name = "";
-                $scope.formData.startDate = "";
-                $scope.formData.startDateTime = "";
-                $scope.formData.endDate = "";
-                $scope.formData.endDateTime = "";
+                $scope.formData.startDate = undefined;
+                $scope.formData.startDateTime = undefined;
+                $scope.formData.endDate = undefined;
+                $scope.formData.endDateTime = undefined;
 
 
                 // Refresh the map with new data
-                gservice.refresh($scope.formData.latitude, $scope.formData.longitude);
-                gservice.hideUserLocation();
+                //gservice.refresh($scope.formData.latitude, $scope.formData.longitude);
+
+                //gservice.hideUserLocation();
+
+                $('#myModalHorizontal').modal('toggle');
+
             })
             .error(function (data) {
                 console.log('Error: ' + data);
