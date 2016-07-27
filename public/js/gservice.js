@@ -127,7 +127,6 @@ angular.module('gservice', [])
                 $timeout(function(){
                     window.open(path , '_blank');
                 });
-
             };
 
             // Clear the locations holder
