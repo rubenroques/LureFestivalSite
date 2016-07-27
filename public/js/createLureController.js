@@ -74,8 +74,8 @@ createLureController.controller('createLureController', function($scope, $http, 
 
         var endDateMerge;
 
-        if ($scope.formData.endDate == "undefined" || $scope.formData.endDate  == "null" || $scope.formData.endDate  == null  || $scope.formData.endDate == undefined
-            || $scope.formData.endDateTime == "undefined" || $scope.formData.endDateTime  ==  "null" || $scope.formData.endDateTime  == null || $scope.formData.endDateTime == undefined )
+        if ($scope.formData.endDate == "undefined" || $scope.formData.endDate  == "null" || $scope.formData.endDate  == null  || $scope.formData.endDate == undefined ||$scope.formData.endDate==""
+            || $scope.formData.endDateTime == "undefined" || $scope.formData.endDateTime  ==  "null" || $scope.formData.endDateTime  == null || $scope.formData.endDateTime == undefined || $scope.formData.endDateTime=="" )
         {
             endDateMerge = new Date(startDateMerge.getTime() + 30*60000);
         }
