@@ -84,7 +84,7 @@ angular.module('gservice', [])
         // Functions
         // --------------------------------------------------------------
         // Refresh the Map with new data. Takes three parameters (lat, long, and filtering results)
-        googleMapService.refresh = function(latitude, longitude, filteredResults){
+        googleMapService.refresh = function(latitude, longitude, showUserLocation){
 
             // Clears the holding array of locations
             locations = [];
@@ -102,8 +102,9 @@ angular.module('gservice', [])
                 // Then convert the results into map points
                 locations = convertToMapPoints(response);
 
+
                 // Then initialize the map -- noting that no filter was used.
-                initialize(latitude, longitude, false);
+                initialize(latitude, longitude, showUserLocation);
 
             }).error(function(){});
 
@@ -201,7 +202,7 @@ angular.module('gservice', [])
 		
 
         // Initializes the map
-        var initialize = function(latitude, longitude, filter) {
+        var initialize = function(latitude, longitude, showUserLocation) {
 
             if (latitude == "undefined" || latitude  == "null" || latitude  == null  || latitude == undefined
                 || longitude == "undefined" || longitude  ==  "null" || longitude  == null || longitude == undefined ) {
@@ -289,16 +290,20 @@ angular.module('gservice', [])
 
 
 
+            if (showUserLocation) {
 
-            // Set initial location as a bouncing red marker
-            var initialLocation = new google.maps.LatLng(parseFloat(latitude), parseFloat(longitude));
-            var marker = new google.maps.Marker({
-                position: initialLocation,
-                map: map,
-                icon: ball_marker_icon
+                // Set initial location as a bouncing red marker
+                var initialLocation = new google.maps.LatLng(parseFloat(latitude), parseFloat(longitude));
+                var marker = new google.maps.Marker({
+                    position: initialLocation,
+                    map: map,
+                    icon: ball_marker_icon
 
-            });
-            lastMarker = marker;
+                });
+                lastMarker = marker;
+
+            }
+
 
             // Function for moving to a selected location
             map.panTo(new google.maps.LatLng(latitude, longitude));
@@ -343,7 +348,7 @@ angular.module('gservice', [])
 
 
         // Refresh the page upon window load. Use the initial latitude and longitude
-        google.maps.event.addDomListener(window, 'load', googleMapService.refresh(selectedLat, selectedLong));
+        google.maps.event.addDomListener(window, 'load', googleMapService.refresh(selectedLat, selectedLong, true));
 
         return googleMapService;
     });
