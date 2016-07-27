@@ -143,10 +143,12 @@ angular.module('gservice', [])
                 // Create popup windows for each record
                 var  contentString = '<p id="hook"  style="color:#dcdcdd; text-align:center; margin-left: 20px; width: 180px; margin-bottom: 16px; ">'+
 					'<b style="font-size: 21px;"> ' + festival.name + '</b> <br> </p> '+
-					'<p  id="bottom"  style="color:#dcdcdd; margin-left: 5px; width: 180px; margin-bottom: 16px; font-size: 14px "> <b>Start:</b>&nbsp;&nbsp;' + startDateString + '<br>' +
-                    '<b>End: </b>&nbsp;&nbsp;&nbsp;' + endDateString + '</>' +
-					'<div style="color:#E63946;text-align:center;"> <button id="clickable-facebook-button" >Share</button> ' +
-                    '<button id="clickable-button" >Directions to</button> </div>';
+					'<p  id="bottom"  style="color:#dcdcdd; margin-left: 5px; width: 180px; margin-bottom: 2px; font-size: 14px;  line-height:150%; "> <b>Start:</b>&nbsp;&nbsp;' + startDateString + '<br>' +
+                    '<b>End: </b>&nbsp;&nbsp;&nbsp;' + endDateString;
+					
+					
+				//	'<div style="color:#E63946;text-align:center;"> <button id="clickable-facebook-button" >Share</button> ' +
+                //    '<button id="clickable-button" >Directions to</button> </div>';
 
 
                 var infoWindow = new google.maps.InfoWindow({ content: contentString,  maxWidth: 310 });
