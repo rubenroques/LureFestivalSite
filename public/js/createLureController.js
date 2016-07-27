@@ -1,6 +1,6 @@
 // Creates the addCtrl Module and Controller. Note that it depends on 'geolocation' and 'gservice' modules.
 var createLureController = angular.module('createLureController', ['geolocation', 'gservice']);
-createLureController.controller('createLureController', function($scope, $http, $rootScope, geolocation, gservice){
+createLureController.controller('createLureController', function($scope, $http, $rootScope,  $window, $timeout, geolocation, gservice){
 
     // Initializes Variables
     // ----------------------------------------------------------------------------
@@ -86,6 +86,14 @@ createLureController.controller('createLureController', function($scope, $http, 
             endDateMerge = new Date(endDateDate.getFullYear(), endDateDate.getMonth(), endDateDate.getDate(), endDateTime.getHours(), endDateTime.getMinutes(), endDateTime.getSeconds());
         }
 
+        if (endDateMerge.getTime() > startDateDate.getTime() + (8*24*60*60000) ) {
+            endDateMerge = new Date(startDateMerge.getTime() + (8*24*60*60000) );
+
+            $timeout(function(){
+                window.alert("Your Lure Festival was too long, the end date has been updated to a maximum of 8 days.");
+            });
+        }
+
         var generatedKey = numberGenerator();
 
         // Grabs all of the text box fields
@@ -98,9 +106,6 @@ createLureController.controller('createLureController', function($scope, $http, 
             endDate: endDateMerge,
             editionKey:generatedKey
         };
-
-
-
 
         // Saves the user data to the db
         $http.post('/users', festivalData)
