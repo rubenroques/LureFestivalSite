@@ -256,7 +256,7 @@ angular.module('gservice', [])
                 if(now > location.startDateTime && now < location.endDateTime ){
                     icon = pink_marker_icon;
                 }
-				else if(location.endDateTime.getTime() < now.getTime() && (location.endDateTime.getTime() > (now.getTime() - 120*60000)) ){
+				else if(location.endDateTime.getTime() < now.getTime() && (location.endDateTime.getTime() > (now.getTime() - (12*60*60000) )) ){
 					icon = old_marker_icon;					
 				}
                 else{
