@@ -29,6 +29,14 @@ angular.module('gservice', [])
             anchor: new google.maps.Point(17.5,35),
             scaledSize: new google.maps.Size(35,35)
         };
+		
+		var old_marker_icon = {
+            url: "./images/old_marker.png",
+
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(17.5,35),
+            scaledSize: new google.maps.Size(35,35)
+        };
 
 
         // Constructor for generic location
@@ -250,6 +258,9 @@ angular.module('gservice', [])
                 if(now > location.startDateTime && now < location.endDateTime ){
                     icon = pink_marker_icon;
                 }
+				else if(location.endDateTime.getTime() < now.getTime() && (location.endDateTime.getTime() > (now.getTime() - 120*60000)) ){
+					icon = old_marker_icon;					
+				}
                 else{
                     icon = blue_marker_icon;
                 }
