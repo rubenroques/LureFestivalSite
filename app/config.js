@@ -10,7 +10,7 @@ module.exports = {
     },
     local:
     {
-        name: "database-lurefestival-pre",
+        name: "database-lurefestival-dev",
         url: "mongodb://localhost/LureFestivalApp",
         port: 27017
     }

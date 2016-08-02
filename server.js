@@ -17,7 +17,10 @@ var app             = express();
 // -----------------------------------------------------
 // Sets the connection to MongoDB 
 
-mongoose.connect(database.mongolab.url);
+mongoose.connect(database.mongolab.url); //  !!! PROD !!!
+
+//mongoose.connect(database.local.url); // Dev!
+
 
 // Logging and Parsing
 app.use(express.static(__dirname + '/public'));                 // sets the static files location to public

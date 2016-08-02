@@ -61,7 +61,7 @@ angular.module('gservice', [])
         var lastMarker;
         var lastInfoWindow;
         var currentSelectedMarker;
-        var initialZoomLevel = 15;
+        var initialZoomLevel = 5;
 
         // User Selected Location (initialize to center in Central Park)
         var selectedLat = 40.78286470;
@@ -72,7 +72,7 @@ angular.module('gservice', [])
             var lastUserLatitude = localStorage.getItem('lastUserLatitude');
             var lastUserLongitude = localStorage.getItem('lastUserLongitude');
 
-            if ((lastUserLatitude != "undefined" && lastUserLatitude  != "null")  && (lastUserLongitude != "undefined" && lastUserLongitude  != "null"))  {
+            if ((lastUserLatitude != undefined && lastUserLatitude  != null)  && (lastUserLongitude != undefined && lastUserLongitude  != null))  {
                 selectedLat = lastUserLatitude;
                 selectedLong = lastUserLongitude;
             }
@@ -216,6 +216,7 @@ angular.module('gservice', [])
             // Uses the selected lat, long as starting point
             var myLatLng = {lat: parseFloat(selectedLat), lng: parseFloat(selectedLong)};
 
+
             // If map has not been created...
             if (!map){
 
@@ -256,7 +257,7 @@ angular.module('gservice', [])
                 if(now > location.startDateTime && now < location.endDateTime ){
                     icon = pink_marker_icon;
                 }
-				else if(location.endDateTime.getTime() < now.getTime() && (location.endDateTime.getTime() > (now.getTime() - (12*60*60000) )) ){
+				else if(location.endDateTime.getTime() < now.getTime() ){
 					icon = old_marker_icon;					
 				}
                 else{
@@ -285,9 +286,7 @@ angular.module('gservice', [])
 
             });
 
-
-
-            if (showUserLocation) {
+            if (showUserLocation != false) {
 
                 // Set initial location as a bouncing red marker
                 var initialLocation = new google.maps.LatLng(parseFloat(latitude), parseFloat(longitude));

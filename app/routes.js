@@ -34,7 +34,7 @@ module.exports = function(app) {
         // Uses Mongoose schema to run the search (empty conditions)
         var query = Festival.find( //query today up
             {
-                "endDate": {"$gte": new Date((new Date()).getTime() - (12000*60*60)) }
+                "endDate": {"$gte": new Date((new Date()).getTime() - (8*24*60*60*1000)) }
             });
 
         query.exec(function(err, users){

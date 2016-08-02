@@ -1,3 +1,8 @@
+
+
+var moment = require('moment');
+
+
 // Declares the initial angular module "meanMapApp". Module grabs other controllers and services.
 var app = angular.module('lureFestivalApp', ['createLureController', 'queryCtrl', 'geolocation', 'gservice', 'ngRoute']);
 

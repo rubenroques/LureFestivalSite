@@ -25,6 +25,9 @@
     <script src="../bower_components/angularjs-geolocation/dist/angularjs-geolocation.min.js"></script>
 
     <!-- Angular Files -->
+    <script src="js/libs/cookiejs.js"></script>
+    <script src="js/libs/browbundle.js"></script>
+
     <script src="js/app.js"></script>
     <script src="js/gservice.js"></script>
     <script src="js/createLureController.js"></script>
@@ -79,8 +82,65 @@
 
 
 
+
 <!-- Modal -->
-<div class="modal fade" id="helpModalHorizontal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true" >
+<div class="modal fade" id="tutorialModalHorizontal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="false" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title text-center" id="tutorialModalLabel">
+                    Tutorial
+                </h4>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+
+
+                <h4>Usage</h4>
+                <p>Hi Trainer!</p>
+                <p>You can use LureFestivals.com to <b>search</b>, <b>share</b> and <b>create</b> Lure Festivals and Parties <b>nearby</b>. </p>
+                <p>Promoting your <b>Lure Festivals</b> and <b>Parties</b> can increase the number of Trainers coming to these PokeStops which can mean longer and collaborative Lures.</p>
+                <p>This website is open to all members of pokemon community to create and promote their own <b>Lure Festivals</b>.</p>
+                <p>Good luck!</p>
+
+                <h4>Pins</h4>
+                <div class="form-group">
+                    <img src="./images/ball_marker.png" class="img-rounded" alt="Cinque Terre" width="40" height="40">
+                    <label for="username">Point to create your Lure Festival</label>
+                </div>
+                <div class="form-group">
+                    <img src="./images/pink_marker.png" class="img-rounded" alt="Cinque Terre" width="40" height="40">
+                    <label for="username">Active Lure Festivals</label>
+                </div>
+                <div class="form-group">
+                    <img src="./images/blue_marker.png" class="img-rounded" alt="Cinque Terre" width="40" height="40">
+                    <label for="username">Future Lure Festivals</label>
+                </div>
+                <div class="form-group">
+                    <img src="./images/old_marker.png" class="img-rounded" alt="Cinque Terre" width="40" height="40">
+                    <label for="username">Finished Lure Festivals.&nbsp;</label><label class="label-required" for="startDate">(8 days)</label>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn modal-submit btn-block" data-dismiss="modal"  >Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="helpModalHorizontal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="false" >
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Modal Header -->
@@ -98,6 +158,14 @@
             <!-- Modal Body -->
             <div class="modal-body">
 
+                <h4>Usage</h4>
+                <p>Hi Trainer!</p>
+                <p>You can use LureFestivals.com to <b>search</b>, <b>share</b> and <b>create</b> Lure Festivals and Parties <b>nearby</b>. </p>
+                <p>Promoting your <b>Lure Festivals</b> and <b>Parties</b> can increase the number of Trainers coming to these PokeStops which can mean longer and collaborative Lures.</p>
+                <p>This website is open to all members of pokemon community to create and promote their own <b>Lure Festivals</b>.</p>
+                <p>Good luck!</p>
+
+                <h4>Pins</h4>
                 <div class="form-group">
                     <img src="./images/ball_marker.png" class="img-rounded" alt="Cinque Terre" width="40" height="40">
                     <label for="username">Point to create your Lure Festival</label>
@@ -112,7 +180,7 @@
                 </div>
                 <div class="form-group">
                     <img src="./images/old_marker.png" class="img-rounded" alt="Cinque Terre" width="40" height="40">
-                    <label for="username">Recently finished Lure Festivals.&nbsp;</label><label class="label-required" for="startDate">(2 hours)</label>
+                    <label for="username">Finished Lure Festivals.&nbsp;</label><label class="label-required" for="startDate">(8 days)</label>
                 </div>
 
             </div>
@@ -124,6 +192,8 @@
         </div>
     </div>
 </div>
+
+
 
 <!-- Modal -->
 <div class="modal fade" id="myModalHorizontal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >

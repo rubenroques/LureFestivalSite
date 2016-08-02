@@ -2,6 +2,14 @@
 var createLureController = angular.module('createLureController', ['geolocation', 'gservice']);
 createLureController.controller('createLureController', function($scope, $http, $rootScope,  $window, $timeout, geolocation, gservice){
 
+
+    if (Cookies.get('TutorialShowed') == undefined) {
+        Cookies.set('TutorialShowed', true);
+        $('#tutorialModalHorizontal').modal('toggle');
+    }
+
+
+
     // Initializes Variables
     // ----------------------------------------------------------------------------
     $scope.formData = {};
@@ -34,6 +42,7 @@ createLureController.controller('createLureController', function($scope, $http, 
 
     // Functions
     // ----------------------------------------------------------------------------
+
 
     // Get coordinates based on mouse click. When a click event is detected....
     $rootScope.$on("clicked", function(){
