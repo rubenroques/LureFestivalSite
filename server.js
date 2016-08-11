@@ -17,9 +17,9 @@ var app             = express();
 // -----------------------------------------------------
 // Sets the connection to MongoDB 
 
-mongoose.connect(database.mongolab.url); //  !!! PROD !!!
+//mongoose.connect(database.mongolab.url); //  !!! PROD !!!
 
-//mongoose.connect(database.local.url); // Dev!
+mongoose.connect(database.local.url); // Dev!
 
 
 // Logging and Parsing

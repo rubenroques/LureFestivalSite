@@ -247,13 +247,6 @@ angular.module('gservice', [])
             // Loop through each location in the array and place a marker
             locations.forEach(function(location, index){
 
-                console.log(location);
-                console.log(location.startDateTime);
-
-                console.log(location.endDateTime);
-                console.log(now);
-
-
                 if(now > location.startDateTime && now < location.endDateTime ){
                     icon = pink_marker_icon;
                 }

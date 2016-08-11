@@ -1,14 +1,27 @@
-// Creates the addCtrl Module and Controller. Note that it depends on 'geolocation' and 'gservice' modules.
+//Imports
+var unique = require('uniq');
+var moment =  require('moment');
+var Cookies = require('js-cookie');
+var queryString = require('query-string');
+var uuid = require('node-uuid');
+
+//Controller
 var createLureController = angular.module('createLureController', ['geolocation', 'gservice']);
 createLureController.controller('createLureController', function($scope, $http, $rootScope,  $window, $timeout, geolocation, gservice){
-
 
     if (Cookies.get('TutorialShowed') == undefined) {
         Cookies.set('TutorialShowed', true);
         $('#tutorialModalHorizontal').modal('toggle');
     }
 
+    var data = [1, 2, 2, 3, 4, 5, 5, 5, 6];
+    console.log(unique(data));
 
+    var date = moment().format("MMM Do YYYY");
+    console.log( date );
+
+    var param = queryString.parse(location.search);
+    console.log( param );
 
     // Initializes Variables
     // ----------------------------------------------------------------------------
@@ -35,11 +48,9 @@ createLureController.controller('createLureController', function($scope, $http, 
         $scope.formData.htmlverified = "Yep (Thanks for giving us real data!)";
 
         gservice.refresh($scope.formData.latitude, $scope.formData.longitude);
-
     });
 
-
-
+    
     // Functions
     // ----------------------------------------------------------------------------
 
@@ -57,8 +68,6 @@ createLureController.controller('createLureController', function($scope, $http, 
 
     // Function for refreshing the HTML5 verified location (used by refresh button)
     $scope.refreshLoc = function(){
-
-        console.log("PRESSED!");
 
         geolocation.getLocation().then(function(data){
             
@@ -103,7 +112,7 @@ createLureController.controller('createLureController', function($scope, $http, 
             });
         }
 
-        var generatedKey = numberGenerator();
+        var generatedKey = uuid.v1();
 
         // Grabs all of the text box fields
         var festivalData = {
@@ -119,10 +128,6 @@ createLureController.controller('createLureController', function($scope, $http, 
         // Saves the user data to the db
         $http.post('/users', festivalData)
             .success(function (data) {
-
-                //Show editionKey to user.
-
-                console.log(data);
 
                 // Once complete, clear the form (except location)
                 $scope.formData.name = "";
