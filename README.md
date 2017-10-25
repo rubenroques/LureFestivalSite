@@ -19,7 +19,3 @@ node server.js
 ````
 
 3) Open browser `http://localhost:3750/`
-
-## Questions
-
-
